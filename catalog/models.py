@@ -24,11 +24,9 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now=False, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now_add=False, verbose_name='Дата последнего изменения')
 
-
     def __str__(self):
         return f'{self.name} ({self.category})'
 
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
-
