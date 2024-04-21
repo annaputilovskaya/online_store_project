@@ -1,10 +1,16 @@
 from django.shortcuts import render
 
+from catalog.models import Product
+
+
 # Create your views here.
 
 
 def home(request):
-    return render(request, 'catalog/home.html')
+    products = Product.objects.all()
+    last_five_products = products.select_related('category').order_by('-created_at')[:5]
+    context = {'object_list': last_five_products}
+    return render(request, 'catalog/home.html', context=context)
 
 
 def contacts(request):
