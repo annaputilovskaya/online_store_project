@@ -1,0 +1,104 @@
+[
+    {
+        "model": "catalog.category",
+        "pk": 1,
+        "fields": {
+            "name": "Одеяла",
+            "description": "Одеяла различной плотности, утяжеленные одеяла, хлопок 100%"
+        }
+    },
+    {
+        "model": "catalog.category",
+        "pk": 2,
+        "fields": {
+            "name": "Подушки",
+            "description": "Ортопедичснкие подушки, искусственный наполнитель memory, наперник съемный на молнии, из хлопковой ткани, простеган синтепоном, 50*30*10"
+        }
+    },
+    {
+        "model": "catalog.category",
+        "pk": 3,
+        "fields": {
+            "name": "Постельное белье",
+            "description": "Перкаль, хлопок 100%, плотность 115гр"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 1,
+        "fields": {
+            "name": "Комплект односпальный",
+            "description": "- Наволочка 50*70 - 1 шт.\r\n- Простынь 145*215\r\n- Пододеяльник 147*210",
+            "image": "",
+            "category": 3,
+            "price": 1400,
+            "created_at": "2024-04-20T15:46:17Z",
+            "updated_at": "2024-04-20T15:46:19Z"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 2,
+        "fields": {
+            "name": "Комплект полутороспальный",
+            "description": "- Наволочка 50*70 - 2 шт.\r\n- Простынь 200*215\r\n- Пододеяльник 160*210",
+            "image": "",
+            "category": 3,
+            "price": 1600,
+            "created_at": "2024-04-20T15:47:36Z",
+            "updated_at": "2024-04-20T15:47:38Z"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 3,
+        "fields": {
+            "name": "Комплект двуспальный",
+            "description": "- Наволочка 50*70 - 2 шт.\r\n- Простынь 220*215\r\n- Пододеяльник 180*210",
+            "image": "",
+            "category": 3,
+            "price": 1800,
+            "created_at": "2024-04-20T15:48:35Z",
+            "updated_at": "2024-04-20T15:48:41Z"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 4,
+        "fields": {
+            "name": "Комплект евро-формат",
+            "description": "- Наволочка 50*70 - 2 шт.\r\n- Простынь 260*215\r\n- Пододеяльник 200*220",
+            "image": "",
+            "category": 3,
+            "price": 2000,
+            "created_at": "2024-04-20T15:49:49Z",
+            "updated_at": "2024-04-20T15:49:51Z"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 5,
+        "fields": {
+            "name": "Летнее хлопковое одеяло односпальное",
+            "description": "Плотность 150 гр, хлопок 100%, 130*200",
+            "image": "",
+            "category": 1,
+            "price": 1200,
+            "created_at": "2024-04-20T15:52:14Z",
+            "updated_at": "2024-04-20T15:52:16Z"
+        }
+    },
+    {
+        "model": "catalog.product",
+        "pk": 6,
+        "fields": {
+            "name": "Летнее хлопковое одеяло двуспальное",
+            "description": "Плотность 150гр, хлопок 100%, 170*200",
+            "image": "",
+            "category": 1,
+            "price": 2000,
+            "created_at": "2024-04-20T15:54:09Z",
+            "updated_at": "2024-04-20T15:54:11Z"
+        }
+    }
+]
