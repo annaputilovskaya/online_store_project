@@ -13,9 +13,16 @@
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ product.price }} руб.</h1>
                     <b>{{ product.category.name }}</b>
-                        <div class="mt-3 mb-4 text-start m-3">
-                          {{ product.description | linebreaks }}
-                        </div>
+                    <div class="mt-3 mb-4 text-start m-3">
+                      {{ product.description | linebreaks }}
+                    </div>
+                    <div class="mt-3 mb-4 text-start m-3">
+                      Дата создания: {{ product.created_at }}
+                    </div>
+                    <div class="mt-3 mb-4 text-start m-3">
+                      Дата изменения: {{ product.updated_at }}
+                    </div>
+
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
                 </div>
             </div>
