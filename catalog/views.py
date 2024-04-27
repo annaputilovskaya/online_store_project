@@ -17,3 +17,8 @@ def contacts(request):
     if request.method == 'POST':
         print(request.POST)
     return render(request, 'catalog/contacts.html')
+
+
+def product_details(request, pk):
+    context = {'product': Product.objects.get(pk=pk)}
+    return render(request, 'catalog/product_details.html', context=context)
