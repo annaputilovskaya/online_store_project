@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+ <div class="container">
+    <div class="row text-center">
+        <div class="btn-group">
+            <a href="{% url 'blog:create' %}"
+             class="btn btn-sm btn-outline-secondary">Добавить статью</a>
+        </div>
+    </div>
+ </div>
+
+ <div class="container">
+    <div class="row text-center">
+        {% for object in object_list %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                {% if object.image %}
+                <img class = "rounded float-start" src="{{ object.image | media_filter }}">
+                {% endif %}
+                <div class="card-header">
+                    <h3 class="my-0 font-weight-normal">{{ object.title }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-1 text-body-secondary">{{ object.created_at }}</div>
+                    <p class="card-text mb-auto">{{ object.text | truncatechars:50 }}</p>
+                    <a href="{% url 'blog:view' object.pk %}" class="icon-link gap-1 icon-link-hover stretched-link">
+                    Continue reading
+                    <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+                    </a>
+                </div>
+            </div>
+         </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12">
+            <div class="p-4">
+                <h4 class="fst-italic">Архив</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#">2024</a></li>
+                    <li><a href="#">2023</a></li>
+                    <li><a href="#">2021</a></li>
+                    <li><a href="#">2020</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
