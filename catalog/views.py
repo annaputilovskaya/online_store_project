@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from catalog.models import Product
+from catalog.models import Product, Contacts
 
 
 # Create your views here.
@@ -16,4 +16,10 @@ def home(request):
 def contacts(request):
     if request.method == 'POST':
         print(request.POST)
-    return render(request, 'catalog/contacts.html')
+    context = {'contacts': Contacts.objects.get(pk=1)}
+    return render(request, 'catalog/contacts.html', context=context)
+
+
+def product_details(request, pk):
+    context = {'product': get_object_or_404(Product, pk=pk)}
+    return render(request, 'catalog/product_details.html', context=context)
