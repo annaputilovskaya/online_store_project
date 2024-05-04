@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView, TemplateView
 
 from catalog.models import Product, Contacts
 
@@ -6,20 +6,24 @@ from catalog.models import Product, Contacts
 # Create your views here.
 
 
-def home(request):
-    products = Product.objects.all()
-    last_five_products = products.select_related('category').order_by('-created_at')[:5]
-    context = {'object_list': last_five_products}
-    return render(request, 'catalog/home.html', context=context)
+class ProductListView(ListView):
+    model = Product
 
 
-def contacts(request):
-    if request.method == 'POST':
-        print(request.POST)
-    context = {'contacts': Contacts.objects.get(pk=1)}
-    return render(request, 'catalog/contacts.html', context=context)
+class ProductDetailView(DetailView):
+    model = Product
 
 
-def product_details(request, pk):
-    context = {'product': get_object_or_404(Product, pk=pk)}
-    return render(request, 'catalog/product_details.html', context=context)
+class ContactsPage(TemplateView):
+    template_name = 'catalog/contacts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contacts'] = Contacts.objects.get(pk=1)
+        return context
+
+    def post(self, request, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if request.method == 'POST':
+            print(request.POST)
+            return self.render_to_response(context)

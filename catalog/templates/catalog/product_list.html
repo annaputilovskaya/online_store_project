@@ -18,7 +18,7 @@
                         <div class="mt-3 mb-4 text-start m-3">
                           {{ product.description | truncatechars:100 |linebreaks }}
                         </div>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_details' product.pk %}">Подробнее</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
                     <button type="button" class="btn btn-primary" href="#">Купить</button>
                 </div>
             </div>
