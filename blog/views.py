@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -19,13 +20,13 @@ class PostDetailView(DetailView):
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
         self.object.views_count += 1
-        # if self.object.views_count == 100:
-        #     send_mail(
-        #         subject='Поздравляем!',
-        #         message=f'Количество просмотров поста {self.object.title} достигло 100',
-        #         from_email='putilovskayaa@mail.ru',
-        #         recipient_list=['putilovskayaa@gmail.com',]
-        #     )
+        if self.object.views_count == 100:
+            send_mail(
+                subject='Поздравляем!',
+                message=f'Количество просмотров поста "{self.object.title}" достигло 100',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=['putilovskayaa@gmail.com', 'putilovskayaa@mail.ru'],
+            )
         self.object.save()
         return self.object
 
