@@ -5,10 +5,17 @@
 
 <div class="container">
     <div class="row text-center">
+        <div class="col-2">
+            <p>
+                <a class="btn btn-primary" href="{% url 'catalog:product_create' %}" role="button">Добавить продукт</a>
+            </p>
+        </div>
+    </div>
+    <div class="row text-center">
         {% for product in object_list %}
         <div class="col-3">
-            <div class="card mb-4 box-shadow">
-                <img class="card-img-top" src="{{ product.image | media_filter }}">
+            <div class="card mb-4 box-shadow" style="height: 600px">
+                <img class="card-img-top" style="height: 300px" src="{{ product.image | media_filter }}">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
                 </div>
