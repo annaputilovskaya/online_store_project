@@ -5,11 +5,13 @@
         <form class="row" method="post" enctype="multipart/form-data">
             <div class="col-6">
                 <div class="card">
-                    {% if object %}
-                        <p class="card-text">Редактирование продукта</p>
-                    {% else %}
-                        <p class="card-text">Создание продукта</p>
-                    {% endif %}
+                    <div class="card-header">
+                        {% if object %}
+                            <h4 class="card-text">Редактирование продукта</h4>
+                        {% else %}
+                            <h4 class="card-text">Создание продукта</h4>
+                        {% endif %}
+                    </div>
                     <div class="card-body">
                         {% csrf_token %}
                         {{ form.as_p }}
@@ -17,6 +19,22 @@
                     <div class="btn-group">
                         <button type="submit" class="btn btn-success">Сохранить</button>
                         <a class="btn btn-danger" href="{% url 'catalog:home' %}" role="button">Отменить</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-text">Версия продукта</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ formset.management_form }}
+                            {% for form in formset.forms %}
+                                {{ form.as_p }}
+                                {% if not forloop.last %}
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
                     </div>
                </div>
             </div>
