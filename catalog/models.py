@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import CASCADE
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -43,3 +44,17 @@ class Contacts(models.Model):
     class Meta:
         verbose_name = 'Контакты'
         verbose_name_plural = 'Контакты'
+
+
+class ProductVersion(models.Model):
+    product = models.ForeignKey(Product, on_delete=CASCADE, verbose_name='Продукт')
+    version_number = models.PositiveSmallIntegerField(verbose_name='Номер версии')
+    version_name = models.CharField(verbose_name='Название версии')
+    is_active = models.BooleanField(default=False, verbose_name='Признак текущей версии')
+
+    def __str__(self):
+        return f'{self.version_number} ({self.version_name})'
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
