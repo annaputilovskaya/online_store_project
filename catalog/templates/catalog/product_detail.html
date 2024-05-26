@@ -24,11 +24,14 @@
                       Дата изменения: {{ object.updated_at }}
                     </div>
                     <div class="btn-group">
+                        {% if user.is_authenticated %}
                         <a href="{% url 'catalog:product_edit' object.pk %}"
                            class="btn btn-sm btn-outline-secondary">Редактировать продукт</a>
                         <a href="{% url 'catalog:product_delete' object.pk %}"
                            class="btn btn-sm btn-outline-secondary">Удалить</a>
+                        {% else %}
                         <button type="button" class="btn btn-sm btn-primary">Купить</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
