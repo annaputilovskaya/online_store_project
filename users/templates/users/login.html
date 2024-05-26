@@ -8,10 +8,15 @@
                     <div class="card-body">
                         {% csrf_token %}
                         {{ form.as_p }}
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary me-2">
+                                Войти
+                           </button>
+                           <a class="btn btn-outline-dark me-2" href="{% url 'users:reset_password' %}" role="button">
+                               Восстановление пароля
+                           </a>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">
-                        Войти
-                   </button>
                </div>
             </div>
         </form>
