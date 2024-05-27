@@ -46,24 +46,17 @@ def reset_password(request):
 
     if request.method == 'POST':
         email = request.POST.get('email')
-
-        try:
-            user = User.objects.get(email=email)
-            password = generate_password()
-            user.set_password(password)
-            user.save()
-            send_mail(
-                subject='Восстановление пароля',
-                message=f'Здравствуйте! Ваш пароль для доступа изменен: {password}',
-                from_email=EMAIL_HOST_USER,
-                recipient_list=[user.email],
-            )
-            return redirect(reverse('users:login'))
-
-        except Exception:
-            context = {'error_message': 'Данный пользователь не зарегистрирван'}
-            return render(request, 'users/reset_password.html', context)
-
+        user = get_object_or_404(User, email=email)
+        password = generate_password()
+        user.set_password(password)
+        user.save()
+        send_mail(
+            subject='Восстановление пароля',
+            message=f'Здравствуйте! Ваш пароль для доступа изменен: {password}',
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[user.email],
+        )
+        return redirect(reverse('users:login'))
     return render(request, 'users/reset_password.html')
 
 
