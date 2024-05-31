@@ -49,7 +49,7 @@ def reset_password(request):
         user = get_object_or_404(User, email=email)
         password = generate_password()
         user.set_password(password)
-        user.save()
+        user.save(update_fields=['token', 'is_active'])
         send_mail(
             subject='Восстановление пароля',
             message=f'Здравствуйте! Ваш пароль для доступа изменен: {password}',
