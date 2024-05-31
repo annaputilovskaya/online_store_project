@@ -6,9 +6,11 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-2">
+            {% if user.is_authenticated %}
             <p>
                 <a class="btn btn-primary" href="{% url 'catalog:product_create' %}" role="button">Добавить продукт</a>
             </p>
+            {% endif %}
         </div>
     </div>
     <div class="row text-center">
@@ -27,7 +29,9 @@
                           {{ product.description | truncatechars:100 |linebreaks }}
                         </div>
                     <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
+                    {% if not user.is_authenticated %}
                     <button type="button" class="btn btn-primary" href="#">Купить</button>
+                    {% endif %}
                 </div>
             </div>
          </div>
