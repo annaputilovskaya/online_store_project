@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
@@ -10,6 +11,14 @@ from catalog.models import Product, Contacts, ProductVersion
 
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.has_perm('catalog.cancel_publication'):
+            return super().get_queryset().order_by('-created_at')
+        elif user.is_authenticated:
+            return super().get_queryset().filter(Q(owner=user) | Q(is_published=True)).order_by('-created_at')
+        return super().get_queryset().filter(is_published=True).order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
