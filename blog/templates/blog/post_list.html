@@ -3,6 +3,8 @@
 {% load blog_tags %}
 
 {% block content %}
+
+{% if perms.blog.add_post %}
  <div class="container">
     <div class="row text-center">
         <div class="btn-group">
@@ -11,6 +13,7 @@
         </div>
     </div>
  </div>
+{% endif %}
 
  <div class="container">
     <div class="row text-center">
@@ -24,8 +27,16 @@
                     <h3 class="my-0 font-weight-normal">{{ object.title }}</h3>
                 </div>
                 <div class="card-body">
+                    {% if perms.blog.add_post and perms.blog.change_post %}
+                        {% if object.is_published %}
+                        <div class="mb-1 text-body-secondary">Опубликована</div>
+                        {% else %}
+                        <div class="mb-1 text-body-secondary">Не опубликована</div>
+                        {% endif %}
+                    {% else %}
                     <div class="mb-1 text-body-secondary">{{ object.created_at }}</div>
                     <div class="mb-1 text-body-secondary">Количество просмотров: {{ object.views_count }}</div>
+                    {% endif %}
                     <p class="card-text mb-auto">{{ object.text | truncatechars:50 }}</p>
                     <a href="{% url 'blog:view' object.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">
                     Continue reading
