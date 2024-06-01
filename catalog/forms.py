@@ -40,3 +40,16 @@ class ProductVersionForm(StyleFormMixin, ModelForm):
     class Meta:
         model = ProductVersion
         fields = '__all__'
+
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ['description', 'category', 'is_published']
+
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        for word in FORBIDDEN_WORDS:
+            if word in description:
+                raise ValidationError('Запрещенное описание продукта')
+        return description
