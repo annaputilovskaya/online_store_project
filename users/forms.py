@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, UserChangeForm
-from django.forms import forms
+from django import forms
 
 from catalog.forms import StyleFormMixin
 from users.models import User
@@ -15,7 +15,7 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
 class UserProfileForm(StyleFormMixin, UserChangeForm):
     class Meta:
         model = User
-        exclude = ('password',)
+        fields = ['email', 'phone', 'avatar', 'country']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
