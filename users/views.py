@@ -88,16 +88,16 @@ class ProfileView(UpdateView):
                 from_email=EMAIL_HOST_USER,
                 recipient_list=[user.new_email],
             )
+            return redirect(reverse('users:login'))
         user.save()
         return super().form_valid(form)
 
 
-class ChangeEmailView(View):
-    def get(self, request, token):
-        user = get_object_or_404(User, new_token=token)
-        user.email = user.new_email
-        user.token = user.new_token
-        user.new_token = ''
-        user.is_active = True
-        user.save()
-        return redirect('users:profile')
+def change_email(request, token):
+    user = get_object_or_404(User, new_token=token)
+    user.email = user.new_email
+    user.token = user.new_token
+    user.new_token = ''
+    user.is_active = True
+    user.save()
+    return redirect('users:profile')

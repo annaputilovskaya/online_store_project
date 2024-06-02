@@ -3,7 +3,7 @@ from django.urls import path
 
 from users.apps import UsersConfig
 from users.views import UserCreateView, email_verification, reset_password, ProfileView, \
-    ChangeEmailView
+    change_email
 
 app_name = UsersConfig.name
 
@@ -14,5 +14,5 @@ urlpatterns = [
     path('email_confirm/<str:token>/', email_verification, name='email_confirm'),
     path('reset_password/', reset_password, name='reset_password'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('change_email/<str:token>/', ChangeEmailView.as_view(), name='change_email'),
+    path('change_email/<str:token>/', change_email, name='change_email'),
 ]
