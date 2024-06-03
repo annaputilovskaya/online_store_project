@@ -29,8 +29,10 @@
                           {{ product.description | truncatechars:100 |linebreaks }}
                         </div>
                     <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
-                    {% if not user.is_authenticated %}
-                    <button type="button" class="btn btn-primary" href="#">Купить</button>
+                    {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-sm btn-primary" href="#">Купить</button>
+                    {% else %}
+                    <a class="btn btn-sm btn-primary" href="{% url 'users:login' %}">Купить</a>
                     {% endif %}
                 </div>
             </div>

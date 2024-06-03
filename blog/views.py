@@ -11,6 +11,8 @@ class PostListView(ListView):
     model = Post
 
     def get_queryset(self):
+        if self.request.user.has_perm('blog.add_post') and self.request.user.has_perm('blog.change_post'):
+            return super().get_queryset().order_by('-created_at')
         return super().get_queryset().filter(is_published=True).order_by('-created_at')
 
 
@@ -56,7 +58,7 @@ class PostUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:view', args=[self.kwargs.get('pk')])
+        return reverse('blog:view', args=[self.kwargs.get('slug')])
 
 
 class PostDeleteView(DeleteView):

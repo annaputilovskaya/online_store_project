@@ -18,10 +18,14 @@
     </div>
     <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
+            {% if perms.blog.change_post %}
             <a href="{% url 'blog:edit' object.slug %}"
                class="btn btn-sm btn-outline-secondary">Редактировать статью</a>
+            {% endif %}
+            {% if perms.blog.delete_post %}
             <a href="{% url 'blog:delete' object.slug %}"
                class="btn btn-sm btn-outline-secondary">Удалить</a>
+            {% endif %}
             <a href="{% url 'blog:post_list' %}"
                class="btn btn-sm btn-outline-secondary">Назад</a>
         </div>
