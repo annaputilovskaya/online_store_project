@@ -1,0 +1,21 @@
+{% extends 'catalog/base.html' %}
+{% load catalog_tags %}
+{% block content %}}
+
+
+<div class="container">
+    <h3 class="text mb-4">Фильтр товаров по категориям</h3>
+    <ul>
+    {% for category in object_list %}
+        <li>
+            <a class="my-0 font-weight-normal" href="{% url 'catalog:product_by_category' category.pk %}">
+                {{ category.name }}
+            </a>
+            <p class="mt-3 mb-4 text-start m-3">
+                {{ category.description | linebreaks }}
+            </p>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
