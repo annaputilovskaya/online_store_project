@@ -6,11 +6,22 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, ProductVersionForm, ProductModeratorForm
-from catalog.models import Product, Contacts, ProductVersion
+from catalog.models import Product, Contacts, ProductVersion, Category
+from catalog.services import get_categories_from_cache
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_categories_from_cache()
 
 
 class ProductListView(ListView):
     model = Product
+    extra_context = {
+        'cat_selected': 0
+    }
 
     def get_queryset(self):
         user = self.request.user
@@ -118,6 +129,37 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
+
+
+class ProductCategoryList(ListView):
+    template_name = 'catalog/product_list.html'
+    context_object_name = 'products'
+    allow_empty = False
+
+    def get_queryset(self):
+        user = self.request.user
+        result = Product.objects.filter(category=self.kwargs.get('pk')).select_related('category')
+        if user.has_perm('catalog.cancel_publication'):
+            return result.order_by('-created_at')
+        elif user.is_authenticated:
+            return result.filter(Q(owner=user) | Q(is_published=True)).order_by('-created_at')
+        return result.filter(is_published=True).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        category = context_data['products'][0].category
+        context_data['cat_selected'] = category.pk
+        products = context_data.get('object_list')
+        for product in products:
+            versions = ProductVersion.objects.filter(product=product)
+            active_versions = versions.filter(is_active=True)
+            if active_versions:
+                product.active_version = active_versions.last().version_name
+            else:
+                product.active_version = 'Новый'
+
+        context_data['object_list'] = products
+        return context_data
 
 
 class ContactsPage(TemplateView):
